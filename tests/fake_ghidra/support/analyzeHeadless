@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# 테스트용 가짜 analyzeHeadless: 호출을 기록하고 postScript 출력 파일을 흉내 낸다.
+echo "$*" >> "${FAKE_LOG:?}"
+[[ -n "${FAKE_SLEEP:-}" ]] && sleep "$FAKE_SLEEP"
+proj="$1"; args=("$@"); script=""; out=""
+for ((i = 0; i < ${#args[@]}; i++)); do
+  if [[ "${args[$i]}" == -postScript ]]; then script="${args[$((i + 1))]}"; out="${args[$((i + 2))]}"; fi
+done
+mkdir -p "$proj"; touch "$proj/proj.gpr"
+if [[ "$script" == ExportFunctions.java ]]; then
+  printf 'addr\tname\tsize\tcallers\tcallees\tstrings\n' > "$out"
+  for n in $(seq 1 "${FAKE_NFUNCS:-3}"); do printf '0x%x\tf%d\t%d\t0\t0\t\n' $((0x1000 + n * 16)) "$n" "$n" >> "$out"; done
+  printf 'addr\trefs\ttext\n0x2000\t0x1010\tCorrect\n0x2010\t0x1020\tWrong\n' > "$(dirname "$out")/strings.tsv"
+else
+  [[ -n "${FAKE_SCRIPT_ERROR:-}" ]] && echo "ERROR REPORT SCRIPT ERROR:  DecompileAt.java : boom"
+  [[ -n "${FAKE_NO_OUT:-}" ]] || seq 1 "${FAKE_DECOMP_LINES:-10}" | sed 's/^/line /' > "$out"
+fi
+exit 0

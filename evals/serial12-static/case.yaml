@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: serial12-static
+expected_outcome: |
+  정답 R3v_M3_N0w!! 을 정적 분석과 정방향 재구현으로 찾고 실행하지 않는다.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: twostage-run
+expected_outcome: |
+  2단계 입력 zeta / 74416 과 출력 CTF{zeta_74416}. FNV-1a 재구현+탐색, 모듈러 역원, 실행 확인과 반증.
+context:
+  scaffold_script: place-files.sh

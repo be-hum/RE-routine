@@ -1,0 +1,16 @@
+{
+  "name": "re-routine",
+  "owner": {
+    "name": "NAM YUNHYUK"
+  },
+  "metadata": {
+    "description": "Binary reverse-engineering routine for Claude Code (ELF/PE/WebAssembly)."
+  },
+  "plugins": [
+    {
+      "name": "re-routine",
+      "source": "./",
+      "description": "Binary reverse-engineering routine for ELF/PE/WebAssembly."
+    }
+  ]
+}
